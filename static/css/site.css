@@ -1,0 +1,299 @@
+body {
+    font-family: "微软雅黑", "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: #6a6a6a;
+    font-size: 12px;
+    background: #ddf4ff url("../images/survey_bg.jpg") repeat-x;
+}
+
+div {
+    display: block;
+}
+
+
+
+.mainCss {
+    background: white;
+    width: 920px;
+    margin: 0 auto;
+}
+
+.survey {
+    width: 780px;
+    line-height: 20px;
+    word-wrap: break-word;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.surveyhead {
+    line-height: 20px;
+    text-align: center;
+    width: 96%;
+    padding: 40px 2% 30px;
+}
+
+.surveydescription {
+    color: #555555;
+    line-height: 24px;
+    text-align: left;
+    font-size: 16px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #ccc;
+    margin-left: 0;
+    margin-top: 20px;
+}
+
+fieldset {
+    border: 0;
+}
+
+.div_title_cut_question {
+    font-size: 16px;
+}
+
+.div_question {
+    border: 2px solid white;
+    padding: 4px;
+    clear: both;
+    margin: 2px auto 10px;
+    width: 96%;
+    height: auto;
+}
+
+.div_title_question_all {
+    padding-top: 2px;
+    font-size: 15px;
+    color: #444444;
+    font-weight: bold;
+    height: auto;
+    line-height: 20px;
+}
+
+.div_title_question {
+    overflow: hidden;
+    zoom: 1;
+}
+
+span.req {
+    color: red;
+    font-weight: bold;
+}
+
+.div_table_radio_question {
+    clear: both;
+    padding-top: 5px;
+    padding-left: 24px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #EFEFEF;
+    font-size: 15px;
+    color: #333333;
+    _padding-left: 27px;
+}
+
+.div_table_clear_top {
+    clear: both;
+    margin-top: 4px;
+}
+
+.div_table_radio_question li {
+    float: left;
+    list-style-type: none;
+}
+
+.jqRadio {
+    background: transparent url('../images/radio.gif') no-repeat;
+    vertical-align: middle;
+    height: 16px;
+    width: 18px;
+    _font-size: 10px;
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+}
+
+.jqChecked {
+    background-position: 0 -16px;
+}
+
+.jqCheckbox {
+    background: transparent url('../images/checkbox.gif') no-repeat;
+    vertical-align: middle;
+    height: 16px;
+    width: 18px;
+    _font-size: 10px;
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+}
+
+.ulradiocheck li input {
+    position: absolute;
+    top: 6px;
+}
+
+.div_table_radio_question li label, .div_table_radio_question li input, .div_table_radio_question td input {
+    cursor: pointer;
+}
+
+.underline {
+    background-color: transparent;
+    border: solid 1px transparent;
+    padding: 3px;
+    _border-color: white;
+    border-bottom: solid 1px #cdcdcd;
+}
+
+.qtypetip {
+    color: #0066FF;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.div_table_radio_question .inputtext {
+    line-height: 22px;
+    height: 22px;
+    font-size: 16px;
+}
+
+.div_title_question .underline, .div_title_question .inputtext {
+    font-size: 16px;
+}
+
+textarea {
+    -webkit-appearance: textarea;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    user-select: text;
+    flex-direction: column;
+    cursor: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-width: 1px;
+    border-style: solid;
+    border-color: initial;
+    border-image: initial;
+    padding: 2px;
+}
+
+.jqChecked {
+    background-position: 0 -16px;
+}
+
+.div_table_clear_bottom {
+    clear: both;
+    margin-bottom: 10px;
+}
+
+dl, dt, dd, ul, li, ol, p, form, img {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    border: none;
+}
+
+.div_table_radio_question ul {
+    clear: both;
+}
+
+.ulradiocheck li {
+    line-height: 30px;
+    position: relative;
+}
+
+.ulradiocheck li input {
+    position: absolute;
+    top: 6px;
+}
+
+.ulradiocheck li label {
+    display: block;
+    padding-left: 20px;
+    vertical-align: middle;
+}
+
+a, a:link, a:active {
+    color: #075DB3;
+    text-decoration: none;
+}
+
+.errorMessage {
+    color: Red;
+    margin-left: 20px;
+    height: 20px;
+}
+
+input.submitbutton {
+    border: 1px solid #0492d6;
+    background: #13a5ec;
+}
+
+input.submitbutton_hover, input.submitbutton:hover {
+    background: #1eb0f6;
+    color: #fff !important;
+}
+
+input.submitbutton {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    border: 0;
+    cursor: pointer;
+    background: #13a5ec;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 15px;
+    overflow: visible;
+}
+
+input.submitbutton:hover, input.submitbutton_hover {
+    background: #1eb0f6;
+    color: #fff !important;
+}
+
+/*top*/
+.top-alert-tips {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -300px;
+    width: 600px;
+    z-index: 10099;
+    background: #1dbd03;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #fff;
+    height: 50px;
+    line-height: 50px;
+    white-space: nowrap;
+    padding: 0 20px;
+}
+
+.alert-success {
+    background: #1dbd03;
+}
+
+.alert-error {
+    background: #fb1d0f;
+}
+
+.top-alert-tips .close {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    font-size: 22px;
+}
+
+.top-alert-tips .code {
+    float: right;
+    margin-right: 20px;
+    color: #fff;
+    text-decoration: underline
+}
+

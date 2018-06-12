@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <title>Document</title>
+</head>
+<body>
+<div id="top-alert" class="top-alert-tips alert-success" style="display:none">
+    <div class="code_box">123123</div>
+</div>
+<div class="mainCss">
+
+
+    <div class="mainInner">
+        <div class="box">
+            <div class="survey">
+                <div class="surveyhead">
+                    <div>
+                        <h1>{{ surveyItem.title }}</h1>
+                    </div>
+                    <div class="surveydescription">
+                        {{ surveyItem.survey_desc }}
+                    </div>
+                </div>
+
+                <div class="surveycontent">
+                    <form onsubmit="javascript:return false;">
+                        <input type="hidden" name="survey" value="{{ surveyId }}">
+                        <div id="surveyContent">
+                            <fieldset>
+
+                                {% for title in surveyTitles %}
+                                    <div class="div_question">
+                                        <div class="div_title_question_all">
+                                            <div class="div_title_question">
+                                                {{ forloop.counter }}、 {{ title.title }}
+                                                {% ifequal title.if_require 1 %}
+                                                    <span class="req">&nbsp;*</span>
+                                                {% endifequal %}
+                                                {% ifnotequal title.tips '' %}
+                                                    <span class="qtypetip">&nbsp;{{ title.tips }}</span>
+                                                {% endifnotequal %}
+                                            </div>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                        <div class="div_table_radio_question">
+                                            <div class="div_table_clear_top"></div>
+                                            {% if title.survey_type != 'text' %}
+                                                <ul class="ulradiocheck">
+                                                    {% for choice in title.choices.all %}
+                                                        <li style="width: {% if choice|length == 4 %}19{% elif choice|length == 3 %}99{% else %}24{% endif %}%;">
+                                                            <a href="javascript:"
+                                                               class="{% if title.survey_type == 'radio' %}jqRadio{% else %}jqCheckbox{% endif %}"
+                                                               rel="q1_1"></a>
+                                                            <input style="display:none;" type="{{ title.survey_type }}"
+                                                                   name="{{ title.id }}"
+                                                                   id="q{{ title.id }}_{{ choice.id }}"
+                                                                   value="{{ choice.choice_val }}">
+                                                            <label for="q{{ title.id }}_{{ choice.id }}"> {{ choice.choice_val }} {{ choice.title }}</label>
+                                                        </li>
+                                                    {% endfor %}
+
+                                                    <div style="clear:both;"></div>
+                                                </ul>
+                                            {% else %}
+                                                <textarea style="overflow: auto;width:62%;height:88px;"
+                                                          placeholder="请输入其它"
+                                                          class="inputtext" id="q{{ title.id }}_{{ choice.id }}"
+                                                          name="{{ title.id }}"></textarea>
+                                            {% endif %}
+                                            <div style="clear:both;"></div>
+                                            <div class="div_table_clear_bottom"></div>
+                                        </div>
+
+                                    </div>
+                                {% endfor %}
+                            </fieldset>
+
+
+                            <div id="submit_div" style="padding-top: 6px;clear:both; padding-bottom:10px;">
+                                <table style="margin: 20px auto;">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="button" class="submitbutton" value="提交"
+                                                   onmouseout="this.className='submitbutton';" id="submit_button"
+                                                   onclick="checkSubmit(this)"
+                                                   style="padding: 0 24px; height: 32px;">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="footCss">
+
+    </div>
+
+</div>
+<script src="//cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
+<script>
+    function dealTopAlert(status, text) {
+        var top_alert = $('#top-alert');
+        if (status) {
+            top_alert.addClass('alert-success').removeClass('alert-error')
+        } else {
+            top_alert.addClass('alert-error').removeClass('alert-success')
+        }
+        $('.code_box').text(text)
+        top_alert.addClass('block').slideDown(200);
+        setTimeout(function () {
+            top_alert.removeClass('block').slideUp(200)
+        }, 1700)
+    }
+
+    {#dealTopAlert()#}
+
+    $("label").on("click", function () {
+        var _this = $(this);
+        var attrFor = _this.attr('for');
+        _type = $('#' + attrFor).attr('type');
+        if (_type == 'radio') {
+            _this.siblings('a').addClass('jqChecked');
+            _this.parent().siblings('li').children('a').removeClass('jqChecked');
+        } else {
+            if (!$('#' + attrFor).prop('checked')) {
+                _this.siblings('a').addClass('jqChecked');
+            } else {
+                _this.siblings('a').removeClass('jqChecked');
+            }
+        }
+    })
+
+    function checkSubmit(_this) {
+        $(_this).attr('disabled', 'disabled')
+        hasChecked = true;
+        $(".ulradiocheck").each(function () {
+            inputObject = $(this).find('input')
+            if (!inputObject.is(":checked")) {
+                inputObject.focus()
+                hasChecked = false
+                return false;
+            }
+
+        });
+        if (!hasChecked) {
+            dealTopAlert(0, '请填写选择所有的问卷题！')
+            $(_this).removeAttr('disabled')
+            return false;
+        }
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "{% url 'survey:survey_add' %}",
+            data: $("form").serialize(),
+            async: true,
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            },
+            success: function (data) {
+                if (data.status == '0') {
+                    dealTopAlert(0, data.msg)
+                } else if (data.status == '1') {
+                    dealTopAlert(1, data.msg)
+                    setTimeout(function () {
+                        window.history.back(-1);
+                    }, 2000)
+                }
+                $(_this).removeAttr('disabled')
+            },
+            error: function () {
+                dealTopAlert(0, "请联系客服！")
+                $(_this).removeAttr('disabled')
+
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
